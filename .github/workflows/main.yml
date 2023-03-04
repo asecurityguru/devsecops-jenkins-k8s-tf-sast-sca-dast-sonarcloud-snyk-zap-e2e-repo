@@ -1,4 +1,4 @@
-name: JFrog Xray Scan
+name: JFrog Xray Scan e
 
 on: [push]
 
