@@ -1,4 +1,4 @@
-name: JFrog Xray Scan en
+name: JFrog Xray Scan env
 
 on: [push]
 
