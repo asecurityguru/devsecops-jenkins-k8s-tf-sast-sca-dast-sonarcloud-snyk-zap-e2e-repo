@@ -12,6 +12,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Print Variable
+      run: |
+        echo "The value of MY_VAR is '${{ secrets.XRAY_SERVER_URL }}'"
+        
     - name: Checkout repository
       uses: actions/checkout@v2
       
