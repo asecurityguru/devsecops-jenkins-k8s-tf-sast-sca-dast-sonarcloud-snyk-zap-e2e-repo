@@ -1,0 +1,34 @@
+name: JFrog Xray Scan
+
+on: [push]
+
+env:
+  XRAY_SERVER_URL: ${{ secrets.XRAY_SERVER_URL }}
+  XRAY_USERNAME: ${{ secrets.XRAY_USERNAME }}
+  XRAY_PASSWORD: ${{ secrets.XRAY_PASSWORD }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      
+    - name: Set up Java
+      uses: actions/setup-java@v2
+      with:
+        java-version: '11'
+
+    - name: Install JFrog CLI
+      run: |
+        curl -fL https://getcli.jfrog.io | sh
+        sudo mv jfrog /usr/local/bin/
+
+    - name: Build with Maven
+      run: mvn clean install
+
+    - name: Scan with JFrog Xray
+      run: |
+        jfrog xr c --url="${XRAY_SERVER_URL}" --user="${XRAY_USERNAME}" --password="${XRAY_PASSWORD}"
+        jfrog xr maven --fail=true target/*.jar
