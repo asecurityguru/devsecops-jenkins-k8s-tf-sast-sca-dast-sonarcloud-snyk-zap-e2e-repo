@@ -1,4 +1,4 @@
-name: JFrog Xray Scan envi
+name: JFrog Xray Scan envir
 
 on: [push]
 
@@ -30,8 +30,6 @@ jobs:
         curl -fL https://getcli.jfrog.io | sh
         sudo mv jfrog /usr/local/bin/
 
-    - name: Build with Maven
-      run: mvn clean install
 
     - name: Scan with JFrog Xray
       run: |
