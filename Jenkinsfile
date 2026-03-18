@@ -39,6 +39,10 @@ pipeline {
     	} 
 	stage('Kubernetes Deployment of ASG Bugg Web Application') {
 	   steps {
+		  withCredentials([[
+        $class: 'AmazonWebServicesCredentialsBinding',
+        credentialsId: 'aws-credentials'
+      ]]) { 
 	      withKubeConfig([credentialsId: 'kubelogin']) {
 		  sh('kubectl delete all --all -n devsecops')
 		  sh ('kubectl apply -f deployment.yaml --namespace=devsecops')  
